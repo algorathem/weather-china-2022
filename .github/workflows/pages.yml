@@ -1,0 +1,60 @@
+name: deploy pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: install build dependencies
+        run: pip install duckdb pandas pyarrow openpyxl
+
+      - name: verify the data and the page
+        run: |
+          python build/verify.py
+          # build_data.py needs the source workbook, which is not committed, so
+          # the page is rebuilt from the committed data/ and source/ instead.
+          # The builder refuses to publish if the atlas and the Parquet file
+          # disagree on any station.
+          python build/build_site.py
+
+      - name: stage the site
+        run: |
+          # index.html is self-contained: the atlas data, the Parquet payload and
+          # the console are all inline. Only it needs to be published.
+          mkdir -p _site
+          cp index.html _site/
+          cp data/weather.parquet data/weather.csv data/stations.csv data/weather_meta.json _site/
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,213 @@
+/* ==========================================================================
+   SQL console
+   Appended to the atlas stylesheet. Kept in the same palette as the rest of
+   the page so the new section reads as part of the same document.
+   ========================================================================== */
+
+#console { margin-top: 56px; }
+
+#console .c-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px 20px;
+}
+#console .c-sub {
+  color: var(--soft);
+  max-width: 46rem;
+  margin: 0 0 18px;
+}
+
+/* --- the load button ------------------------------------------------------ */
+
+.c-boot {
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  padding: 18px 20px;
+  margin-bottom: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+}
+.c-boot p { margin: 0; max-width: 34rem; color: var(--soft); font-size: 0.95rem; }
+.c-boot code { font-size: 0.9em; }
+
+.c-btn {
+  font: inherit;
+  background: var(--pine);
+  color: var(--mist);
+  border: 1px solid var(--pine);
+  padding: 9px 18px;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+}
+.c-btn:hover:not(:disabled) { background: #243b34; }
+.c-btn:disabled { opacity: 0.45; cursor: default; }
+.c-btn.ghost {
+  background: transparent;
+  color: var(--pine);
+  border-color: var(--line);
+  padding: 6px 12px;
+  font-size: 0.9rem;
+}
+.c-btn.ghost:hover:not(:disabled) { background: var(--sheet); border-color: var(--pine); }
+
+.c-status { font-size: 0.92rem; color: var(--soft); min-height: 1.3em; }
+.c-status.err { color: var(--heat); }
+
+/* --- schema reference ----------------------------------------------------- */
+
+.c-schema { margin: 0 0 22px; }
+.c-schema > summary {
+  cursor: pointer;
+  padding: 8px 0;
+  font-size: 0.95rem;
+  color: var(--soft);
+  border-bottom: 1px solid var(--line);
+}
+.c-schema > summary:hover { color: var(--pine); }
+.c-schema-body { padding: 14px 0 4px; }
+
+.c-tables { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.c-table { border: 1px solid var(--line); background: var(--sheet); padding: 10px 12px; }
+.c-table h4 {
+  margin: 0 0 2px;
+  font-size: 0.95rem;
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.c-table .c-kind {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--soft);
+}
+.c-table ul { margin: 8px 0 0; padding: 0; list-style: none; }
+.c-table li {
+  font-family: Consolas, "SF Mono", Menlo, monospace;
+  font-size: 0.8rem;
+  color: var(--soft);
+  padding: 1px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.c-table li b { color: var(--pine); font-weight: 600; }
+.c-table li span { color: #7d8f87; }
+
+/* --- saved queries -------------------------------------------------------- */
+
+.c-saved { margin: 0 0 20px; }
+.c-saved > summary {
+  cursor: pointer;
+  padding: 8px 0;
+  font-size: 0.95rem;
+  color: var(--soft);
+  border-bottom: 1px solid var(--line);
+}
+.c-saved > summary:hover { color: var(--pine); }
+.c-saved-body { padding: 12px 0 2px; }
+.c-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.c-chip {
+  font: inherit;
+  font-size: 0.88rem;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--pine);
+  padding: 5px 11px;
+  cursor: pointer;
+  text-align: left;
+}
+.c-chip:hover { background: var(--pine); color: var(--mist); border-color: var(--pine); }
+
+/* --- editor --------------------------------------------------------------- */
+
+.c-editor { display: grid; gap: 10px; grid-template-columns: minmax(0, 1fr) 210px; align-items: start; }
+@media (max-width: 720px) { .c-editor { grid-template-columns: minmax(0, 1fr); } }
+
+.c-sql {
+  font-family: Consolas, "SF Mono", Menlo, monospace;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  width: 100%;
+  min-height: 168px;
+  padding: 12px 14px;
+  background: var(--sheet);
+  color: var(--pine);
+  border: 1px solid var(--line);
+  resize: vertical;
+  tab-size: 2;
+}
+.c-sql:focus { outline: 2px solid var(--heat); outline-offset: 1px; border-color: var(--heat); }
+
+.c-side { display: grid; gap: 8px; }
+.c-side .c-btn { width: 100%; text-align: center; }
+.c-hint { font-size: 0.84rem; color: var(--soft); }
+.c-hint kbd {
+  font-family: Consolas, monospace;
+  font-size: 0.92em;
+  border: 1px solid var(--line);
+  padding: 0 4px;
+  background: var(--sheet);
+}
+
+/* --- results -------------------------------------------------------------- */
+
+.c-out { margin-top: 18px; }
+.c-out-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.c-out-meta { font-size: 0.9rem; color: var(--soft); }
+.c-out-meta b { color: var(--pine); font-weight: 600; }
+.c-note { font-size: 0.88rem; color: var(--soft); margin: 0 0 8px; }
+.c-note.err {
+  color: var(--heat);
+  background: var(--heat-wash);
+  border-left: 3px solid var(--heat);
+  padding: 10px 12px;
+  white-space: pre-wrap;
+  font-family: Consolas, monospace;
+  font-size: 0.84rem;
+}
+
+.c-scroll {
+  max-height: 460px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  background: var(--sheet);
+}
+.c-table-scroll { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+.c-table-scroll th, .c-table-scroll td {
+  padding: 6px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.c-table-scroll thead th {
+  position: sticky;
+  top: 0;
+  background: var(--pine);
+  color: var(--mist);
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  z-index: 1;
+}
+.c-table-scroll tbody tr:nth-child(even) { background: rgba(0, 0, 0, 0.022); }
+.c-table-scroll tbody tr:hover { background: var(--heat-wash); }
+.c-table-scroll td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.c-table-scroll td.null { color: #9aa8a2; font-style: italic; }
+.c-table-scroll td.txt { white-space: pre; font-family: Consolas, monospace; font-size: 0.92em; }
+.c-more { padding: 8px 10px; font-size: 0.85rem; color: var(--soft); background: var(--sheet); }
+
+@media (prefers-reduced-motion: reduce) {
+  #console *, #console *::before, #console *::after { animation: none !important; transition: none !important; }
+}
