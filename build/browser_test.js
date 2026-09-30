@@ -89,7 +89,12 @@ class Sess {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 (async () => {
-  const server = await serve();
+  // By default the built site is served from disk. Set SITE_URL to point the
+  // same suite at a deployed copy instead, which is the only way to catch a
+  // problem that only exists after the upload: a payload that failed to
+  // publish, a stale cached index.html, a data file that 404s.
+  const live = process.env.SITE_URL;
+  const server = live ? null : await serve();
   const { proc, ws } = await cdp();
   const s = await Sess.open(ws);
 
@@ -109,11 +114,18 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       logs.push('exception: ' + (m.params.exceptionDetails.exception?.description || m.params.exceptionDetails.text));
     }
     if (m.method === 'Log.entryAdded' && m.params.entry.level === 'error') {
-      logs.push('log: ' + m.params.entry.text);
+      // The URL matters: a bare "Failed to load resource: 404" cannot be told
+      // apart from a missing data file, and the page never mentions favicon.
+      const e = m.params.entry;
+      const where = e.url ? ` [${e.url}]` : '';
+      logs.push('log: ' + e.text + where);
     }
   });
 
-  const url = `http://127.0.0.1:${PORT}/index.html`;
+  const url = live
+    ? `${live.replace(/\/$/, '')}/index.html?cb=${Date.now()}`
+    : `http://127.0.0.1:${PORT}/index.html`;
+  console.log(live ? `testing the deployed site: ${url}` : `testing the local build: ${url}`);
   await s.send('Page.navigate', { url }, sessionId);
   await sleep(3500);
 
@@ -153,9 +165,32 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   console.log(`  saved query chips: ${chips.length}`);
   if (chips.length < 10) throw new Error('expected many saved query chips, got ' + chips.length);
 
-  const schema = await s.eval(`document.querySelectorAll('.c-table').length`, sessionId);
-  console.log(`  schema cards: ${schema}`);
-  if (schema !== 7) throw new Error('expected 7 schema cards, got ' + schema);
+  // The schema browser is hand-written, so it can silently fall behind the SQL.
+  // Compare the names it renders against what the engine actually holds, rather
+  // than counting cards against a constant that has to be bumped by hand too.
+  const schemaInfo = await s.eval(`(() => {
+    const shown = [...document.querySelectorAll('.c-table h4')].map(h => h.textContent);
+    const kinds = [...document.querySelectorAll('.c-table .c-kind')].map(k => k.textContent);
+    return JSON.stringify({ shown, kinds });
+  })()`, sessionId);
+  const schema = JSON.parse(schemaInfo);
+  const nTables = schema.kinds.filter((k) => k === 'table').length;
+  const nViews = schema.kinds.filter((k) => k === 'view').length;
+  console.log(`  schema cards: ${schema.shown.length} (${nTables} tables, ${nViews} views)`);
+  if (schema.shown.length < 10) throw new Error('expected many schema cards, got ' + schema.shown.length);
+
+  const documented = await s.eval(`(async () => {
+    const conn = globalThis.__weatherConsole.testHandle().getConn();
+    const r = await conn.query("SELECT table_name FROM information_schema.tables WHERE table_schema='main' ORDER BY table_name");
+    return JSON.stringify(r.toArray().map(x => x.toJSON().table_name));
+  })()`, sessionId);
+  const actual = JSON.parse(documented);
+  const shownSet = new Set(schema.shown);
+  const missing = actual.filter((name) => !shownSet.has(name));
+  const stale = schema.shown.filter((name) => !actual.includes(name));
+  if (missing.length) throw new Error('schema browser omits: ' + missing.join(', '));
+  if (stale.length) throw new Error('schema browser lists objects that do not exist: ' + stale.join(', '));
+  console.log(`  schema browser documents all ${actual.length} objects the engine exposes`);
 
   // Run every saved query through the real browser engine.
   console.log('\nrunning all saved queries in the browser:');
@@ -378,7 +413,18 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     console.log('\nno page errors');
   }
 
-  server.close();
+  // An uncaught exception in the page used to be printed here and then ignored,
+  // which meant "ALL BROWSER CHECKS PASSED" could be printed over a broken
+  // page. The only tolerated entry is the browser's automatic favicon request,
+  // which the page does not make and cannot suppress. Everything else fails.
+  const benign = /favicon/i;
+  const fatal = logs.filter((l) => !benign.test(l));
+  if (fatal.length) {
+    throw new Error(`${fatal.length} page error(s) beyond the favicon request:\n  ` + fatal.join('\n  '));
+  }
+  if (logs.length) console.log('  (favicon only, ignored)');
+
+  if (server) server.close();
   proc.kill();
   console.log('\nALL BROWSER CHECKS PASSED');
   process.exit(0);
