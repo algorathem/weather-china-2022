@@ -1,0 +1,46 @@
+{
+  "built_utc": "2026-09-30T09:04:49Z",
+  "source_file": "weather_data_May22.xlsx",
+  "rows": 42827,
+  "stations_by_coords": 379,
+  "station_names": 375,
+  "provinces_reported": 32,
+  "date_start": "2022-05-01",
+  "date_end": "2022-08-21",
+  "days": 113,
+  "rows_per_day": 379,
+  "blank_temperatures": 791,
+  "blank_temperature_stations": 7,
+  "quirks": {
+    "duplicate_station_names": {
+      "Bugt": [
+        "Nei Mongol"
+      ],
+      "Ji'an": [
+        "Jiangxi",
+        "Jilin"
+      ],
+      "Jinghe": [
+        "Shaanxi",
+        "Xinjiang"
+      ],
+      "Yichun": [
+        "Heilongjiang",
+        "Jiangxi"
+      ]
+    },
+    "region_aliases_applied": {
+      "T'ai-pei": "Taiwan"
+    },
+    "region_aliases_present": [
+      "T'ai-pei"
+    ],
+    "blank_temperatures": "entirely the 7 Taiwan stations, all 113 days each"
+  },
+  "units": {
+    "tmax": "degC",
+    "tmin": "degC",
+    "rain": "mm",
+    "altitude": "m"
+  }
+}
