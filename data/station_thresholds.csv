@@ -1,0 +1,380 @@
+station_id,name,region_norm,tmax_p90,tmax_p95,tmin_p10,rain_p95,rain_p25
+"Abag Qi@44.017,114.950",Abag Qi,Nei Mongol,31.88,32.68,3.72,5.3,0.0
+"Aihui@50.250,127.450",Aihui,Heilongjiang,29.78,30.14,5.02,16.68,0.0
+"Akqi@40.933,78.450",Akqi,Xinjiang,30.94,32.02,8.1,11.28,0.0
+"Alar@40.500,81.050",Alar,Xinjiang,36.3,37.4,13.86,0.28,0.0
+"Altay@47.733,88.083",Altay,Xinjiang,31.78,33.8,8.94,2.36,0.0
+"Anda@46.383,125.317",Anda,Heilongjiang,30.78,31.4,7.52,16.52,0.0
+"Ankang@32.717,109.033",Ankang,Shaanxi,41.0,41.6,15.02,9.06,0.0
+"Anqing@30.533,117.050",Anqing,Anhui,37.18,37.92,15.3,18.34,0.0
+"Anyang@36.117,114.367",Anyang,Henan,36.4,37.56,16.02,17.26,0.0
+"Arxan@47.167,119.950",Arxan,Nei Mongol,27.52,28.64,-0.8,15.9,0.0
+"Bachu@39.800,78.567",Bachu,Xinjiang,37.7,38.76,14.74,0.94,0.0
+"Bailing-Miao@41.700,110.433",Bailing-Miao,Nei Mongol,32.18,33.62,4.82,4.62,0.0
+"Baingoin@31.367,90.017",Baingoin,Xizang,19.68,20.28,-0.38,6.04,0.0
+"Baise@23.900,106.600",Baise,Guangxi,36.9,37.94,20.32,23.58,0.0
+"Balguntay@42.667,86.333",Balguntay,Xinjiang,30.14,31.24,7.72,3.98,0.0
+"Baoding@38.850,115.567",Baoding,Hebei,35.4,36.34,9.22,25.98,0.0
+"Baoqing@46.317,132.183",Baoqing,Heilongjiang,30.34,31.74,6.44,15.66,0.0
+"Baoshan@25.133,99.217",Baoshan,Yunnan,29.76,30.14,15.02,21.64,0.0
+"Barkam@31.900,102.233",Barkam,Sichuan,34.24,34.6,5.28,13.12,0.0
+"Batang@30.000,99.100",Batang,Sichuan,34.08,34.64,11.1,18.34,0.0
+"Bayan Mod@40.750,104.500",Bayan Mod,Nei Mongol,34.58,34.94,8.42,4.18,0.0
+"Bayanbulak@43.033,84.150",Bayanbulak,Xinjiang,23.36,24.32,0.32,7.84,0.0
+"Baytik Shan@45.367,90.533",Baytik Shan,Xinjiang,29.18,30.16,7.34,2.34,0.0
+"Beidao@34.567,105.867",Beidao,Gansu,34.48,35.24,10.78,14.78,0.0
+"Beihai@21.483,109.100",Beihai,Guangxi,33.68,34.0,22.48,43.7,0.0
+"Beijing@39.933,116.283",Beijing,Beijing,35.48,36.34,10.58,28.64,0.0
+"Bengbu@32.950,117.367",Bengbu,Anhui,37.38,38.0,14.88,23.96,0.0
+"Benxi@41.317,123.783",Benxi,Liaoning,31.44,32.76,9.16,24.28,0.0
+"Bijie@27.300,105.233",Bijie,Guizhou,32.24,33.04,11.62,15.7,0.0
+"Boxian@33.883,115.767",Boxian,Anhui,37.6,38.14,14.8,39.52,0.0
+"Bugt@42.333,120.700",Bugt,Nei Mongol,31.2,31.6,8.02,12.48,0.0
+"Bugt@48.767,121.917",Bugt,Nei Mongol,28.0,29.14,0.46,19.74,0.0
+"Chang Dao@37.933,120.717",Chang Dao,Shandong,31.26,33.02,12.34,22.84,0.0
+"Changbai@41.350,128.167",Changbai,Jilin,29.44,30.0,2.68,29.36,0.0
+"Changchun@43.900,125.217",Changchun,Jilin,30.6,31.3,10.04,24.2,0.0
+"Changde@29.050,111.683",Changde,Hunan,38.86,39.84,15.9,31.76,0.0
+"Changling@44.250,123.967",Changling,Jilin,30.58,31.1,9.9,30.52,0.0
+"Changsha@28.233,112.867",Changsha,Hunan,37.28,38.22,16.04,29.48,0.0
+"Changting@25.850,116.367",Changting,Fujian,36.98,37.98,18.36,28.98,0.0
+"Chaoyang@41.550,120.450",Chaoyang,Liaoning,33.2,34.32,9.1,22.5,0.0
+"Chengde@40.967,117.933",Chengde,Hebei,34.9,35.1,7.7,12.24,0.0
+"Chengshantou@37.400,122.683",Chengshantou,Shandong,27.88,28.84,11.96,27.9,0.0
+"Chenzhou@25.800,113.033",Chenzhou,Hunan,36.46,36.9,16.92,36.5,0.0
+"Chifeng@42.267,118.967",Chifeng,Nei Mongol,31.88,33.7,7.96,13.58,0.0
+"Chongqing@29.517,106.483",Chongqing,Sichuan,41.28,42.7,18.24,41.16,0.0
+"Chuxiong@25.017,101.533",Chuxiong,Yunnan,29.4,30.3,15.04,22.16,0.0
+"Da Xian@31.200,107.500",Da Xian,Sichuan,40.5,41.5,17.58,21.64,0.0
+"Da-Qaidam@37.850,95.367",Da-Qaidam,Qinghai,28.88,29.8,2.06,1.46,0.0
+"Dachen Dao@28.450,121.883",Dachen Dao,Zhejiang,31.2,31.74,16.52,22.84,0.0
+"Dali@25.700,100.183",Dali,Yunnan,29.1,29.42,13.32,26.28,0.0
+"Dalian@38.900,121.633",Dalian,Liaoning,30.6,31.42,12.8,30.64,0.0
+"Dandong@40.050,124.333",Dandong,Liaoning,30.28,31.3,9.96,36.86,0.0
+"Danxian@19.517,109.583",Danxian,Hainan,35.7,36.1,23.02,47.0,0.0
+"Daocheng@29.050,100.300",Daocheng,Sichuan,23.68,23.94,4.72,11.66,0.0
+"Darlag@33.750,99.650",Darlag,Qinghai,22.2,23.2,-2.66,10.18,0.0
+"Datong@40.100,113.333",Datong,Shanxi,33.7,34.58,3.52,22.04,0.0
+"Dawu@30.983,101.117",Dawu,Sichuan,31.48,32.64,5.92,12.9,0.0
+"Dege@31.733,98.567",Dege,Sichuan,29.48,30.3,4.28,12.76,0.0
+"Delingha@37.367,97.367",Delingha,Qinghai,30.06,30.74,4.84,8.2,0.0
+"Dengqen@31.417,95.600",Dengqen,Xizang,25.58,25.98,3.12,11.9,0.0
+"Deqen@28.500,98.900",Deqen,Yunnan,23.2,24.58,5.72,15.3,0.0
+"Dinghai@30.033,122.117",Dinghai,Zhejiang,35.56,37.46,15.82,17.72,0.0
+"Dingtao@35.067,115.567",Dingtao,Shandong,37.16,38.38,13.28,30.52,0.0
+"Dongfang@19.100,108.617",Dongfang,Hainan,33.6,33.84,25.0,26.08,0.0
+"Dongsheng@39.833,109.983",Dongsheng,Nei Mongol,30.6,32.04,9.54,17.44,0.0
+"Dongtai@32.867,120.317",Dongtai,Jiangsu,36.78,37.72,14.62,17.84,0.0
+"Dulan@36.300,98.100",Dulan,Qinghai,28.84,29.94,3.52,6.42,0.0
+"Dunhua@43.367,128.200",Dunhua,Jilin,29.68,30.62,4.46,18.68,0.0
+"Dunhuang@40.150,94.683",Dunhuang,Gansu,37.58,38.12,12.0,0.0001,0.0
+"Duolun@42.183,116.467",Duolun,Nei Mongol,30.2,30.7,1.3,11.46,0.0
+"Dushan@25.833,107.550",Dushan,Guizhou,31.7,32.52,14.76,22.58,0.0
+"Ejin Qi@41.950,101.067",Ejin Qi,Nei Mongol,37.86,39.74,11.42,0.0801,0.0
+"Emei Shan@29.517,103.333",Emei Shan,Sichuan,19.5,20.34,3.18,32.18,0.0
+"Enshi@30.283,109.467",Enshi,Hubei,39.06,40.32,16.04,23.64,0.0
+"Erenhot@43.650,112.000",Erenhot,Nei Mongol,34.28,35.2,4.6,2.14,0.0
+"Fangxian@32.033,110.767",Fangxian,Hubei,39.82,40.58,13.14,9.32,0.0
+"Fengjie@31.050,109.500",Fengjie,Sichuan,41.76,42.2,16.86,12.88,0.0
+"Fengning@41.217,116.633",Fengning,Hebei,34.38,34.92,3.84,11.84,0.0
+"Fengxiang@34.517,107.383",Fengxiang,Shaanxi,35.98,36.6,12.06,17.02,0.0
+"Fezxzan@35.250,117.950",Fezxzan,Shandong,36.86,37.68,13.38,28.28,0.0
+"Fogang@23.867,113.533",Fogang,Guangdong,36.16,37.02,20.28,68.94,0.0
+"Fuding@27.333,120.200",Fuding,Fujian,37.44,39.2,17.74,38.24,0.0
+"Fujin@47.233,131.983",Fujin,Heilongjiang,29.94,31.12,7.62,14.4,0.0
+"Fuyang@32.933,115.833",Fuyang,Anhui,37.7,38.14,14.62,21.5,0.0
+"Fuyun@46.983,89.517",Fuyun,Xinjiang,33.64,35.14,9.94,0.82,0.0
+"Fuzhou@26.083,119.283",Fuzhou,Fujian,38.54,39.06,18.04,36.12,0.0
+"Gangca@37.333,100.133",Gangca,Qinghai,21.9,23.18,0.8,15.68,0.0
+"Ganyu@34.833,119.133",Ganyu,Jiangsu,35.28,36.4,13.68,43.18,0.0
+"Ganzhou@25.850,114.950",Ganzhou,Jiangxi,37.86,39.1,18.88,17.46,0.0
+"Gaoyao@23.050,112.467",Gaoyao,Guangdong,36.44,37.34,21.62,43.6,0.0
+"Garze@31.617,100.000",Garze,Sichuan,27.96,28.92,4.52,10.72,0.0
+"Gengma@23.550,99.400",Gengma,Yunnan,32.96,33.44,18.32,20.68,0.0
+"Golmud@36.417,94.900",Golmud,Qinghai,30.48,31.7,7.52,1.08,0.0
+"Guaizihu@41.367,102.367",Guaizihu,Nei Mongol,38.84,40.18,11.66,0.54,0.0
+"Guangchang@26.850,116.333",Guangchang,Jiangxi,37.36,37.9,18.0,21.36,0.0
+"Guanghua@32.383,111.667",Guanghua,Hubei,38.28,38.94,13.9,10.44,0.0
+"Guangnan@24.067,105.067",Guangnan,Yunnan,32.0,32.56,15.7,27.72,0.0
+"Guangzhou@23.167,113.333",Guangzhou,Guangdong,36.58,37.78,20.64,52.62,0.0
+"Guilin@25.333,110.300",Guilin,Guangxi,37.08,37.94,19.06,53.0,0.0
+"Guinan@35.583,100.750",Guinan,Qinghai,27.02,28.34,0.74,10.44,0.0
+"Guiping@23.400,110.083",Guiping,Guangxi,35.16,36.38,21.02,43.98,0.0
+"Guiyang@26.583,106.717",Guiyang,Guizhou,32.04,32.64,13.48,35.14,0.0
+"Gushi@32.167,115.667",Gushi,Henan,37.18,38.1,15.7,11.8,0.0
+"Haikou@20.033,110.350",Haikou,Hainan,35.5,35.88,23.26,51.54,0.0
+"Hailar@49.217,119.750",Hailar,Nei Mongol,29.48,30.86,3.78,12.68,0.0
+"Hails@41.450,106.383",Hails,Nei Mongol,32.78,34.04,6.94,3.62,0.0
+"Hailun@47.433,126.967",Hailun,Heilongjiang,29.5,30.04,5.04,13.5,0.0
+"Haiyang@36.767,121.167",Haiyang,Shandong,32.4,33.84,12.54,40.2,0.0
+"Haliut@41.567,108.517",Haliut,Nei Mongol,31.76,33.04,6.28,6.46,0.0
+"Hami@42.817,93.517",Hami,Xinjiang,39.08,40.44,14.72,0.0001,0.0
+"Hangzhou@30.233,120.167",Hangzhou,Zhejiang,39.98,40.46,16.22,25.84,0.0
+"Hanzhong@33.067,107.033",Hanzhong,Shaanxi,37.98,39.04,15.76,13.3,0.0
+"Harbin@45.750,126.767",Harbin,Heilongjiang,30.26,31.84,7.16,24.92,0.0
+"Hechi@24.700,108.050",Hechi,Guangxi,35.78,36.64,19.22,40.34,0.0
+"Hefei@31.867,117.233",Hefei,Anhui,38.28,39.08,14.92,11.52,0.0
+"Henan@34.733,101.600",Henan,Qinghai,23.44,24.14,-1.68,11.44,0.0
+"Hengchun@22.000,120.750",Hengchun,Taiwan,,,,25.9,0.0
+"Hequ@39.383,111.150",Hequ,Shanxi,34.1,35.74,8.84,20.34,0.0
+"Heyuan@23.733,114.683",Heyuan,Guangdong,36.94,38.04,21.12,47.14,0.0
+"Hezuo@35.000,102.900",Hezuo,Gansu,26.98,28.66,0.12,11.14,0.0
+"Hoboksar@46.783,85.717",Hoboksar,Xinjiang,29.88,30.5,7.12,3.1,0.0
+"Hohhot@40.817,111.683",Hohhot,Nei Mongol,32.5,33.44,5.92,8.08,0.0
+"Hotan@37.133,79.933",Hotan,Xinjiang,37.76,38.98,16.32,0.0801,0.0
+"Hua Shan@34.483,110.083",Hua Shan,Shaanxi,25.68,26.22,8.92,20.5,0.0
+"Huade@41.900,114.000",Huade,Nei Mongol,30.48,31.08,4.3,11.34,0.0
+"Huadian@42.983,126.750",Huadian,Jilin,30.86,31.42,6.1,26.48,0.0
+"Huailai@40.400,115.500",Huailai,Hebei,34.98,35.84,9.26,16.04,0.0
+"Huaiyin@33.667,119.033",Huaiyin,Jiangsu,35.98,36.5,14.34,24.06,0.0
+"Huajialing@35.383,105.000",Huajialing,Gansu,25.38,26.04,5.92,14.56,0.0
+"Huang Shan@30.133,118.150",Huang Shan,Anhui,25.8,26.44,8.62,38.9,0.0
+"Huili@26.650,102.250",Huili,Sichuan,30.18,30.96,13.32,22.02,0.0
+"Huimin@37.500,117.533",Huimin,Shandong,35.92,36.54,13.6,33.64,0.0
+"Huize@26.417,103.283",Huize,Yunnan,28.42,29.3,10.04,15.9,0.0
+"Hulin@45.767,132.967",Hulin,Heilongjiang,28.42,29.54,7.24,9.8,0.0
+"Huma@51.717,126.650",Huma,Heilongjiang,30.1,30.74,1.66,15.1,0.0
+"Huoshan@31.400,116.333",Huoshan,Anhui,39.06,39.34,14.9,11.3,0.0
+"Jartai@39.783,105.750",Jartai,Nei Mongol,37.5,37.94,9.38,4.28,0.0
+"Jarud Qi@44.567,120.900",Jarud Qi,Nei Mongol,32.48,33.04,9.06,22.2,0.0
+"Ji'an@27.117,114.967",Ji'an,Jiangxi,38.68,39.56,18.54,21.86,0.0
+"Ji'an@41.100,126.150",Ji'an,Jilin,31.18,31.9,6.1,31.62,0.0
+"Jiangcheng@22.617,101.817",Jiangcheng,Yunnan,29.48,29.84,17.52,37.56,0.3
+"Jiangling@30.333,112.183",Jiangling,Hubei,36.8,37.64,15.72,20.62,0.0
+"Jiexiu@37.050,111.933",Jiexiu,Shanxi,36.06,36.92,10.86,14.7,0.0
+"Jinan@36.683,116.983",Jinan,Shandong,36.08,37.72,15.14,27.98,0.0
+"Jingdezhen@29.300,117.200",Jingdezhen,Jiangxi,38.58,39.34,16.34,34.62,0.0
+"Jinghe@34.433,108.967",Jinghe,Shaanxi,38.68,39.04,14.54,13.44,0.0
+"Jinghe@44.617,82.900",Jinghe,Xinjiang,36.4,36.96,16.4,2.4,0.0
+"Jinghong@22.017,100.800",Jinghong,Yunnan,35.18,35.7,21.42,25.8,0.0
+"Jining@41.033,113.067",Jining,Nei Mongol,31.5,32.52,4.32,9.08,0.0
+"Jinzhou@41.133,121.117",Jinzhou,Liaoning,32.36,33.0,11.7,21.24,0.0
+"Jiulong@29.000,101.500",Jiulong,Sichuan,27.5,28.1,6.62,18.64,0.0
+"Jiuquan@39.767,98.483",Jiuquan,Gansu,33.2,33.68,11.2,1.48,0.0
+"Jiuxian Shan@25.717,118.100",Jiuxian Shan,Fujian,26.48,27.74,11.8,37.7,0.0
+"Jixi@45.283,130.950",Jixi,Heilongjiang,30.8,31.84,5.56,16.82,0.0
+"Jurh@42.400,112.900",Jurh,Nei Mongol,33.64,34.44,6.4,7.0,0.0
+"Kaba He@48.050,86.350",Kaba He,Xinjiang,32.58,34.28,9.1,1.42,0.0
+"Kangding@30.050,101.967",Kangding,Sichuan,27.1,27.78,5.92,16.3,0.0
+"Karamay@45.600,84.850",Karamay,Xinjiang,36.2,36.98,16.06,2.32,0.0
+"Kashi@39.467,75.983",Kashi,Xinjiang,35.28,36.34,14.32,2.26,0.0
+"Keshan@48.050,125.883",Keshan,Heilongjiang,29.28,29.64,4.76,14.68,0.0
+"Korla@41.750,86.133",Korla,Xinjiang,36.16,37.06,14.22,0.82,0.0
+"Kuandian@40.717,124.783",Kuandian,Liaoning,29.88,30.94,6.36,43.16,0.0
+"Kunming@25.017,102.683",Kunming,Yunnan,28.28,28.78,14.18,23.44,0.0
+"Kuqa@41.717,82.950",Kuqa,Xinjiang,35.4,36.46,13.16,1.32,0.0
+"Lan Yu@22.033,121.550",Lan Yu,Taiwan,,,,36.4,0.0
+"Lancang@22.567,99.933",Lancang,Yunnan,32.4,32.8,19.9,25.14,0.0001
+"Langzhong@31.583,105.967",Langzhong,Sichuan,39.9,41.38,16.82,11.52,0.0
+"Lenghu@38.833,93.383",Lenghu,Qinghai,30.08,31.84,3.12,0.76,0.0
+"Leting@39.433,118.900",Leting,Hebei,33.28,35.0,12.42,21.32,0.0
+"Lhasa@29.667,91.133",Lhasa,Xizang,27.64,28.0,7.4,8.46,0.0
+"Lhunze@28.417,92.467",Lhunze,Xizang,23.08,23.5,3.72,6.88,0.0
+"Lian Xian@24.783,112.383",Lian Xian,Guangdong,37.42,38.24,18.72,39.82,0.0
+"Liangping@30.683,107.800",Liangping,Sichuan,39.68,40.88,15.74,16.24,0.0
+"Lianping@24.367,114.483",Lianping,Guangdong,35.9,36.84,18.98,58.3,0.0
+"Lijing@26.833,100.217",Lijing,Yunnan,27.76,28.34,11.42,22.46,0.0
+"Lincang@23.950,100.217",Lincang,Yunnan,29.86,30.18,16.14,17.78,0.0
+"Lindong@43.983,119.400",Lindong,Nei Mongol,31.6,32.46,7.8,14.4,0.0
+"Lingling@26.233,111.617",Lingling,Hunan,37.86,38.6,17.62,19.9,0.0
+"Lingxian@37.333,116.567",Lingxian,Shandong,36.42,37.74,11.7,24.7,0.0
+"Linhai@28.850,121.133",Linhai,Zhejiang,35.6,36.1,17.12,23.58,0.0
+"Linhe@40.767,107.400",Linhe,Nei Mongol,33.58,35.24,8.74,4.96,0.0
+"Linjiang@41.717,126.917",Linjiang,Jilin,30.98,31.38,6.42,30.94,0.0
+"Linxi@43.600,118.067",Linxi,Nei Mongol,30.6,31.82,2.6,20.6,0.0
+"Lishi@37.500,111.100",Lishi,Shanxi,34.36,35.28,8.84,25.9,0.0
+"Lishui@28.450,119.917",Lishui,Zhejiang,41.08,41.64,16.56,26.36,0.0
+"Litang@30.000,100.267",Litang,Sichuan,22.0,22.54,2.82,14.82,0.0
+"Liuzhou@24.350,109.400",Liuzhou,Guangxi,34.48,35.2,18.3,43.82,0.0
+"Liyang@31.433,119.483",Liyang,Jiangsu,39.78,40.22,15.26,4.9,0.0
+"Longkou@37.617,120.317",Longkou,Shandong,33.96,34.86,13.44,30.82,0.0
+"Longzhou@22.367,106.750",Longzhou,Guangxi,36.78,37.28,22.16,38.52,0.0
+"Lu Shan@29.583,115.983",Lu Shan,Jiangxi,30.1,30.84,12.46,21.62,0.0
+"Luodian@25.433,106.767",Luodian,Guizhou,36.26,37.4,18.1,29.42,0.0
+"Lushi@34.050,111.033",Lushi,Henan,37.8,38.5,10.84,10.74,0.0
+"Lusi@32.067,121.600",Lusi,Jiangsu,36.2,36.9,15.12,15.96,0.0
+"Luxi@24.533,103.767",Luxi,Yunnan,29.1,30.04,13.94,28.88,0.0
+"Macheng@31.183,114.967",Macheng,Hubei,38.18,38.62,14.92,28.7,0.0
+"Madoi@34.917,98.217",Madoi,Qinghai,20.56,21.3,-4.08,7.76,0.0
+"Mandal@42.533,110.133",Mandal,Nei Mongol,33.28,33.98,6.64,4.12,0.0
+"Mangnai@38.250,90.850",Mangnai,Qinghai,28.48,30.2,5.14,1.94,0.0
+"Mazong Shan@41.800,97.033",Mazong Shan,Gansu,32.2,32.88,6.34,0.54,0.0
+"Mei Xian@24.300,116.117",Mei Xian,Guangdong,36.48,37.74,20.54,45.18,0.0
+"Mengjin@34.833,112.433",Mengjin,Henan,36.8,37.82,14.68,12.86,0.0
+"Mengla@21.500,101.583",Mengla,Yunnan,34.28,34.94,21.22,38.6,0.0
+"Mengshan@24.200,110.517",Mengshan,Guangxi,35.36,36.28,19.1,73.36,0.0
+"Mengzi@23.383,103.383",Mengzi,Yunnan,31.46,32.0,16.94,16.16,0.0
+"Mianyang@31.467,104.683",Mianyang,Sichuan,38.36,39.02,16.6,12.24,0.0
+"Minqin@38.633,103.083",Minqin,Gansu,34.76,35.96,10.72,5.0,0.0
+"Mohe@53.467,122.367",Mohe,Heilongjiang,29.88,30.96,-1.28,15.74,0.0
+"Mudanjiang@44.567,129.600",Mudanjiang,Heilongjiang,31.12,32.64,5.94,17.74,0.0
+"Nagqu@31.483,92.067",Nagqu,Xizang,20.78,21.3,0.1,7.8,0.0
+"Nanchang@28.600,115.917",Nanchang,Jiangxi,37.8,38.68,18.0,33.98,0.0
+"Nancheng@27.583,116.650",Nancheng,Jiangxi,38.82,39.44,17.82,25.76,0.0
+"Nanchong@30.800,106.083",Nanchong,Sichuan,39.56,41.28,16.96,17.98,0.0
+"Nanjing@32.000,118.800",Nanjing,Jiangsu,38.48,39.2,15.76,5.16,0.0
+"Nanning@22.817,108.350",Nanning,Guangxi,34.9,35.68,20.46,24.5,0.0
+"Nanping@26.650,118.167",Nanping,Fujian,38.68,39.3,18.12,46.14,0.0
+"Nanyang@33.033,112.583",Nanyang,Henan,37.64,38.5,13.84,12.14,0.0
+"Nanyue@27.300,112.700",Nanyue,Hunan,28.46,29.14,12.12,48.06,0.0
+"Naomaohu@43.600,95.133",Naomaohu,Xinjiang,40.34,41.28,16.34,0.0001,0.0
+"Napo@23.300,105.950",Napo,Guangxi,32.1,32.48,16.96,32.46,0.0
+"Naran Bulag@44.617,114.150",Naran Bulag,Nei Mongol,31.08,32.3,3.14,8.76,0.0
+"Naxi@28.783,105.383",Naxi,Sichuan,39.88,40.52,16.86,28.14,0.0
+"Neijiang@29.617,105.117",Neijiang,Sichuan,40.48,42.14,16.4,21.2,0.0
+"Nenjiang@49.167,125.233",Nenjiang,Heilongjiang,29.88,30.5,4.76,24.48,0.0
+"Nyingchi@29.567,94.467",Nyingchi,Xizang,28.1,28.4,9.4,11.96,0.0
+"Otog Qi@39.100,107.983",Otog Qi,Nei Mongol,32.8,33.74,7.36,12.64,0.0
+"Pagri@27.733,89.083",Pagri,Xizang,14.9,15.38,0.6,9.44,0.0
+"Pengjia Yu@25.633,122.067",Pengjia Yu,Taiwan,,,,32.4,0.0
+"Pingliang@35.550,106.667",Pingliang,Gansu,32.58,33.58,8.9,10.46,0.0
+"Pingtan@25.517,119.783",Pingtan,Fujian,33.7,34.2,18.6,45.52,0.0
+"Pishan@37.617,78.283",Pishan,Xinjiang,38.28,39.6,14.3,0.1,0.0
+"Potou@38.083,116.550",Potou,Hebei,36.14,37.38,14.6,17.38,0.0
+"Pucheng@27.917,118.533",Pucheng,Fujian,38.26,38.64,15.88,40.26,0.0
+"Qamdo@31.150,97.167",Qamdo,Xizang,30.4,31.38,5.44,11.76,0.0
+"Qian Gorlos@45.117,124.833",Qian Gorlos,Jilin,30.8,31.46,8.68,23.16,0.0
+"Qijiaojing@43.483,91.633",Qijiaojing,Xinjiang,39.38,40.44,17.62,0.0001,0.0
+"Qingdao@36.067,120.333",Qingdao,Shandong,30.88,32.24,13.9,40.92,0.0
+"Qinglong@40.400,118.950",Qinglong,Hebei,32.96,33.68,7.82,31.3,0.0
+"Qingyuan@42.100,124.950",Qingyuan,Liaoning,31.22,32.18,3.64,28.58,0.0
+"Qinzhou@21.950,108.617",Qinzhou,Guangxi,34.5,34.84,21.32,46.62,0.0
+"Qionghai@19.233,110.467",Qionghai,Hainan,35.2,35.54,24.02,27.84,0.0
+"Qiqihar@47.383,123.917",Qiqihar,Heilongjiang,30.56,31.0,6.68,17.6,0.0
+"Qitai@44.017,89.567",Qitai,Xinjiang,35.34,36.52,10.7,2.52,0.0
+"Qu Xian@28.967,118.867",Qu Xian,Zhejiang,39.58,39.84,16.66,37.66,0.0
+"Qumarleb@34.133,95.783",Qumarleb,Qinghai,21.36,22.7,-2.96,11.18,0.0
+"Rizhao@35.383,119.533",Rizhao,Shandong,32.68,34.1,13.86,24.22,0.0
+"Rongjiang@25.967,108.533",Rongjiang,Guizhou,37.46,38.24,18.14,29.86,0.0
+"Ruian@27.783,120.650",Ruian,Zhejiang,36.2,37.18,17.74,24.98,0.0
+"Ruili@24.017,97.833",Ruili,Yunnan,32.8,33.64,20.12,32.68,0.1
+"Ruo'Ergai@33.583,102.967",Ruo'Ergai,Sichuan,23.1,24.32,0.64,13.58,0.0
+"Ruoqiang@39.033,88.167",Ruoqiang,Xinjiang,39.2,40.78,11.96,0.1,0.0
+"Sangzhi@29.400,110.167",Sangzhi,Hunan,38.56,39.38,14.66,20.8,0.0
+"Sanhu Dao@16.533,111.617",Sanhu Dao,Hainan,33.0,33.2,25.6,33.58,0.0
+"Sansui@26.967,108.667",Sansui,Guizhou,35.5,36.34,14.82,27.96,0.0
+"Sertar@32.283,100.333",Sertar,Sichuan,23.44,24.04,-2.6,12.42,0.0
+"Shache@38.433,77.267",Shache,Xinjiang,36.74,37.88,14.22,2.1,0.0
+"Shangchuan Dao@21.733,112.767",Shangchuan Dao,Guangdong,33.74,35.34,23.22,80.92,0.0
+"Shanghai@31.400,121.467",Shanghai,Shanghai,38.4,39.42,15.06,21.76,0.0
+"Shangzhi@45.217,127.967",Shangzhi,Heilongjiang,30.6,32.02,5.96,19.44,0.0
+"Shantou@23.400,116.683",Shantou,Guangdong,34.98,35.74,22.12,49.62,0.0
+"Shanwei@22.783,115.367",Shanwei,Guangdong,32.7,33.0,22.04,71.84,0.0
+"Shaoguan@24.800,113.583",Shaoguan,Guangdong,36.66,37.6,19.34,43.66,0.0
+"Shaowu@27.333,117.433",Shaowu,Fujian,38.18,38.7,16.94,38.72,0.0
+"Shaoyang@27.233,111.467",Shaoyang,Hunan,37.0,37.84,16.14,19.8,0.0
+"Shengsi@30.733,122.450",Shengsi,Zhejiang,33.92,34.9,16.14,19.72,0.0
+"Shengxian@29.600,120.817",Shengxian,Zhejiang,39.36,39.92,16.42,26.56,0.0
+"Shenyang@41.733,123.517",Shenyang,Liaoning,31.86,32.8,9.14,34.08,0.0
+"Shenzhen@22.550,114.100",Shenzhen,Guangdong,34.3,35.1,22.64,63.74,0.0
+"Sheyang@33.767,120.250",Sheyang,Jiangsu,36.1,36.7,12.58,19.82,0.0
+"Shijiazhuang@38.033,114.417",Shijiazhuang,Hebei,36.66,38.06,14.82,19.34,0.0
+"Shipu@29.200,121.950",Shipu,Zhejiang,35.58,35.84,16.12,20.3,0.0
+"Shiquanhe@32.500,80.083",Shiquanhe,Xizang,24.44,25.4,0.62,3.6,0.0
+"Simao@22.767,100.983",Simao,Yunnan,29.58,30.16,17.8,43.92,0.0001
+"Sinan@27.950,108.250",Sinan,Guizhou,36.48,37.54,15.04,14.34,0.0
+"Siping@43.183,124.333",Siping,Jilin,30.5,31.4,8.16,31.52,0.0
+"Sog Xian@31.883,93.783",Sog Xian,Xizang,23.98,25.54,2.12,10.1,0.0
+"Songpan@32.650,103.567",Songpan,Sichuan,28.18,28.88,3.12,12.34,0.0
+"Suifenhe@44.383,131.150",Suifenhe,Heilongjiang,28.16,29.08,3.74,24.42,0.0
+"Sunwu@49.433,127.350",Sunwu,Heilongjiang,29.6,30.38,3.86,15.62,0.0
+"Tacheng@46.733,83.000",Tacheng,Xinjiang,34.48,35.88,10.7,2.16,0.0
+"Tai Shan@36.250,117.100",Tai Shan,Shandong,23.9,25.38,7.88,46.9,0.0
+"Taibei@25.033,121.517",Taibei,Taiwan,,,,28.6,0.0
+"Taidong@22.750,121.150",Taidong,Taiwan,,,,16.5,0.0
+"Tailai@46.400,123.417",Tailai,Heilongjiang,31.14,32.0,5.92,14.5,0.0
+"Tainan@23.000,120.217",Tainan,Taiwan,,,,32.8,0.0
+"Taiyuan@37.783,112.550",Taiyuan,Shanxi,34.52,35.4,7.62,14.22,0.0
+"Taizhong@24.150,120.683",Taizhong,Taiwan,,,,27.4,0.0
+"Tangshan@39.667,118.150",Tangshan,Hebei,34.2,34.88,9.4,33.28,0.0
+"Tazhong@39.000,83.667",Tazhong,Xinjiang,40.28,41.68,12.94,0.18,0.0
+"Tengchong@25.117,98.483",Tengchong,Yunnan,28.08,28.6,15.02,29.86,0.4
+"Tianjin@39.100,117.167",Tianjin,Tianjin,35.36,36.54,12.02,27.28,0.0
+"Tikanlik@40.633,87.700",Tikanlik,Xinjiang,39.28,40.0,15.34,0.0801,0.0
+"Tingri@28.633,87.083",Tingri,Xizang,22.58,23.06,1.4,5.38,0.0
+"Tongdao@26.167,109.783",Tongdao,Hunan,35.06,35.74,16.42,37.12,0.0
+"Tonghe@45.967,128.733",Tonghe,Heilongjiang,30.28,31.2,7.4,20.56,0.0
+"Tongliao@43.600,122.267",Tongliao,Nei Mongol,31.94,32.42,9.16,22.22,0.0
+"Tulihe@50.450,121.700",Tulihe,Nei Mongol,28.36,29.26,-3.56,8.34,0.0
+"Tuotuohe@34.217,92.433",Tuotuohe,Qinghai,19.58,21.02,-4.68,9.02,0.0
+"Turpan@42.933,89.200",Turpan,Xinjiang,44.36,45.0,23.3,0.3,0.0
+"Uliastai@45.517,116.967",Uliastai,Nei Mongol,31.98,33.7,2.24,9.5,0.0
+"Urumqi@43.783,87.617",Urumqi,Xinjiang,33.78,35.04,14.42,2.0,0.0
+"Wanyuan@32.067,108.033",Wanyuan,Sichuan,38.1,39.06,14.94,16.84,0.0
+"Weichang@41.933,117.750",Weichang,Hebei,31.86,32.98,2.16,10.84,0.0
+"Weifang@36.700,119.083",Weifang,Shandong,35.7,36.48,12.82,36.2,0.0
+"Weining@26.867,104.283",Weining,Guizhou,26.68,27.44,10.04,16.88,0.0
+"Wenjiang@30.700,103.833",Wenjiang,Sichuan,36.88,37.8,15.7,31.78,0.0
+"Wudaoliang@35.217,93.083",Wudaoliang,Qinghai,17.66,19.68,-5.86,8.96,0.0
+"Wudu@33.400,104.917",Wudu,Gansu,36.5,37.1,13.86,16.32,0.0
+"Wugang@26.733,110.633",Wugang,Hunan,37.14,37.9,16.86,30.72,0.0
+"Wuhan@30.617,114.133",Wuhan,Hubei,38.4,38.68,15.82,24.32,0.0
+"Wuhu@31.333,118.350",Wuhu,Anhui,38.68,39.4,15.1,10.7,0.0
+"Wushaoling@37.200,102.867",Wushaoling,Gansu,21.6,22.1,1.02,15.56,0.0
+"Wutai Shan@39.033,113.533",Wutai Shan,Shanxi,22.68,23.4,3.62,30.88,0.0
+"Wuyishan@27.767,118.033",Wuyishan,Fujian,38.3,38.98,16.56,53.04,0.0
+"Wuzhou@23.483,111.300",Wuzhou,Guangxi,35.64,36.46,20.22,31.0,0.0
+"Xainza@30.950,88.633",Xainza,Xizang,20.98,21.8,0.62,6.76,0.0
+"Xi Ujimqin Qi@44.583,117.600",Xi Ujimqin Qi,Nei Mongol,30.56,31.1,0.78,12.82,0.0
+"Xiamen@24.483,118.083",Xiamen,Fujian,34.28,35.0,19.52,35.8,0.0
+"Xiao'Ergou@49.200,123.717",Xiao'Ergou,Nei Mongol,29.98,31.3,1.94,19.08,0.0
+"Xichang@27.900,102.267",Xichang,Sichuan,33.78,34.24,14.0,24.94,0.0
+"Xifengzhen@35.733,107.633",Xifengzhen,Gansu,31.86,32.2,12.0,14.92,0.0
+"Xigaze@29.250,88.883",Xigaze,Xizang,26.5,26.84,5.24,7.58,0.0
+"Xihua@33.783,114.517",Xihua,Henan,37.4,38.6,13.14,12.54,0.0
+"Xilin Hot@43.950,116.067",Xilin Hot,Nei Mongol,32.88,33.7,3.04,5.9,0.0
+"Xin Barag Youqi@48.667,116.817",Xin Barag Youqi,Nei Mongol,31.94,33.2,5.2,4.26,0.0
+"Xingren@25.433,105.183",Xingren,Guizhou,30.82,31.2,14.4,37.3,0.0
+"Xingtai@37.067,114.500",Xingtai,Hebei,36.0,38.04,16.56,21.7,0.0
+"Xining@36.617,101.767",Xining,Qinghai,29.1,30.02,5.6,18.34,0.0
+"Xinxian@36.033,115.583",Xinxian,Shandong,36.32,38.42,13.2,23.7,0.0
+"Xinyang@32.133,114.050",Xinyang,Henan,37.28,38.32,15.44,35.82,0.0
+"Xinyi@22.350,110.933",Xinyi,Guangdong,35.34,35.84,21.18,66.76,0.0
+"Xisha Dao@16.833,112.333",Xisha Dao,Hainan,32.76,32.9,25.6,49.34,0.0
+"Xiushui@29.033,114.583",Xiushui,Jiangxi,39.24,39.74,16.56,21.38,0.0
+"Xunwu@24.950,115.650",Xunwu,Jiangxi,35.48,36.64,18.82,43.8,0.0
+"Xuzhou@34.283,117.150",Xuzhou,Jiangsu,37.4,37.94,15.4,29.88,0.0
+"Ya'an@29.983,103.000",Ya'an,Sichuan,37.14,37.48,15.98,62.02,0.0
+"Yan An@36.600,109.500",Yan An,Shaanxi,32.66,33.44,9.38,16.88,0.0
+"Yanchi@37.783,107.400",Yanchi,Ningxia,33.54,34.86,9.14,6.46,0.0
+"Yangcheng@35.483,112.400",Yangcheng,Shanxi,34.6,35.54,10.02,28.2,0.0
+"Yangjiang@21.867,111.967",Yangjiang,Guangdong,33.8,35.0,22.28,81.76,0.0
+"Yanji@42.883,129.467",Yanji,Jilin,29.9,30.84,5.16,19.44,0.0
+"Yanzhou@35.567,116.850",Yanzhou,Shandong,36.78,38.34,12.5,34.84,0.0
+"Yaxian@18.233,109.517",Yaxian,Hainan,30.08,30.4,22.12,32.06,0.0
+"Yibin@28.800,104.600",Yibin,Sichuan,38.64,39.82,16.92,21.04,0.0
+"Yichang@30.700,111.300",Yichang,Hubei,37.04,38.54,15.48,27.48,0.0
+"Yichun@27.800,114.383",Yichun,Jiangxi,37.38,37.82,17.62,30.52,0.0
+"Yichun@47.717,128.900",Yichun,Heilongjiang,29.98,31.1,3.88,22.34,0.0
+"Yinchuan@38.483,106.217",Yinchuan,Ningxia,34.8,35.5,10.26,11.96,0.0
+"Yingkou@40.667,122.200",Yingkou,Liaoning,30.6,31.38,11.82,18.46,0.0
+"Yining@43.950,81.333",Yining,Xinjiang,34.88,36.1,13.2,3.42,0.0
+"Yiyuan@36.183,118.150",Yiyuan,Shandong,35.24,35.88,11.62,38.16,0.0
+"Yong'an@25.967,117.350",Yong'an,Fujian,38.78,39.32,17.78,22.44,0.0
+"Youyang@28.833,108.767",Youyang,Sichuan,35.1,35.62,13.02,25.9,0.0
+"Yu Xian@39.833,114.567",Yu Xian,Hebei,33.84,34.54,8.5,21.02,0.0
+"Yu Zhong@35.867,104.150",Yu Zhong,Gansu,32.0,33.38,5.68,13.72,0.0
+"Yuanjiang@23.600,101.983",Yuanjiang,Yunnan,37.98,39.0,21.9,25.26,0.0
+"Yuanling@28.467,110.400",Yuanling,Hunan,38.7,39.52,15.36,27.4,0.0
+"Yuanmou@25.733,101.867",Yuanmou,Yunnan,36.0,36.88,18.02,21.44,0.0
+"Yuanping@38.750,112.700",Yuanping,Shanxi,33.7,34.9,9.76,26.16,0.0
+"Yueyang@29.383,113.083",Yueyang,Hunan,36.88,37.78,18.02,19.14,0.0
+"Yulin@38.233,109.700",Yulin,Shaanxi,32.86,34.64,9.56,19.36,0.0
+"Yumenzhen@40.267,97.033",Yumenzhen,Gansu,33.36,34.48,9.42,1.8,0.0
+"Yuncheng@35.033,111.017",Yuncheng,Shanxi,37.86,38.6,12.54,12.42,0.0
+"Yushe@37.067,112.983",Yushe,Shanxi,33.08,34.28,6.62,16.24,0.0
+"Yushu@33.017,97.017",Yushu,Qinghai,25.98,27.2,-0.72,7.26,0.0
+"Zadoi@32.900,95.300",Zadoi,Qinghai,23.58,24.48,0.34,10.58,0.0
+"Zaoyang@32.150,112.667",Zaoyang,Hubei,38.1,39.42,16.04,8.04,0.0
+"Zhang Ping@25.300,117.400",Zhang Ping,Fujian,38.08,39.18,18.9,36.48,0.0
+"Zhangjiakou@40.783,114.883",Zhangjiakou,Hebei,34.84,35.4,7.24,19.18,0.0
+"Zhangwu@42.417,122.533",Zhangwu,Liaoning,31.28,32.38,9.96,28.46,0.0
+"Zhangye@38.933,100.433",Zhangye,Gansu,34.08,35.38,11.72,4.72,0.0
+"Zhanjiang@21.217,110.400",Zhanjiang,Guangdong,34.46,35.1,23.02,40.2,0.0
+"Zhanyi@25.583,103.833",Zhanyi,Yunnan,28.76,29.5,12.72,31.16,0.0
+"Zhaotong@27.333,103.750",Zhaotong,Yunnan,30.4,30.98,10.04,15.86,0.0
+"Zhengzhou@34.717,113.650",Zhengzhou,Henan,37.6,38.34,15.18,14.94,0.0
+"Zhijiang@27.450,109.683",Zhijiang,Hunan,37.46,38.02,15.6,20.8,0.0
+"Zhongning@37.483,105.667",Zhongning,Ningxia,36.0,36.6,10.76,2.94,0.0
+"Zhongxiang@31.167,112.567",Zhongxiang,Hubei,36.68,37.34,14.92,15.56,0.0
+"Zhumadian@33.000,114.017",Zhumadian,Henan,37.56,38.38,13.46,24.94,0.0

@@ -79,13 +79,15 @@
     // document rather than within root.
     var payload = document.getElementById("console-parquet");
     var stations = document.getElementById("console-stations");
-    if (!payload || !stations) {
+    var thresholds = document.getElementById("console-thresholds");
+    if (!payload || !stations || !thresholds) {
       el.bootBtn.disabled = false;
       setStatus("The embedded data payload is missing from this page.", true);
       return;
     }
     var bytes = b64ToBytes(payload.textContent);
     var csv = new TextDecoder().decode(b64ToBytes(stations.textContent));
+    var thrCsv = new TextDecoder().decode(b64ToBytes(thresholds.textContent));
 
     setStatus("Loading the DuckDB module.");
     import(CDN)
@@ -113,9 +115,11 @@
       .then(function () {
         setStatus("Registering " + Math.round(bytes.length / 1024) + " KB of station data.");
         return db.registerFileBuffer("weather.parquet", bytes).then(function () {
-          // stations.csv is embedded as text, so encode it the same way.
+          // The CSVs are embedded as text, so encode them the same way.
           var enc = new TextEncoder().encode(csv);
-          return db.registerFileBuffer("stations.csv", enc);
+          return db.registerFileBuffer("stations.csv", enc).then(function () {
+            return db.registerFileBuffer("station_thresholds.csv", new TextEncoder().encode(thrCsv));
+          });
         });
       })
       .then(function () {
@@ -127,6 +131,13 @@
           "CREATE OR REPLACE VIEW weather AS SELECT * FROM read_parquet('weather.parquet');"
         ).then(function () {
           return conn.query("CREATE OR REPLACE VIEW stations AS SELECT * FROM read_csv_auto('stations.csv');");
+        }).then(function () {
+          // A TABLE, not a VIEW: these percentiles are precomputed by
+          // build/build_data.py. Computing a window quantile over 42,827 rows
+          // inside wasm added ~35s to every page load, and the values are a
+          // pure function of the immutable Parquet anyway. build/verify.py
+          // re-derives all seven columns and fails on any disagreement.
+          return conn.query("CREATE OR REPLACE TABLE station_thresholds AS SELECT * FROM read_csv_auto('station_thresholds.csv');");
         });
       })
       .then(function () {
@@ -151,11 +162,63 @@
   }
 
   // Multi-statement SQL has to be split, since query() takes one statement.
-  function runAll(sql) {
-    return sql
-      .split(";")
+  // Split a multi-statement script on semicolons that actually end a statement.
+  //
+  // A plain sql.split(";") is wrong in a way that fails confusingly: a
+  // semicolon inside a "--" comment or inside a string literal cuts a
+  // statement in half, and the leftover prose is then handed to the parser,
+  // which reports something like 'syntax error at or near "to"' with no hint
+  // that a comment caused it. That is not hypothetical -- it is how the event
+  // views failed to boot once. So this tracks the four contexts where a
+  // semicolon is not a separator.
+  function splitStatements(sql) {
+    var out = [], buf = "", i = 0, n = sql.length;
+    var inLine = false, inBlock = false, inStr = false, inIdent = false;
+    while (i < n) {
+      var ch = sql[i], next = sql[i + 1];
+      if (inLine) {
+        if (ch === "\n") { inLine = false; buf += ch; }
+        else { buf += ch; }
+        i++;
+        continue;
+      }
+      if (inBlock) {
+        if (ch === "*" && next === "/") { inBlock = false; buf += ch + next; i += 2; continue; }
+        buf += ch; i++; continue;
+      }
+      if (inStr) {
+        buf += ch;
+        // '' inside a string is an escaped quote, not a terminator.
+        if (ch === "'" && next === "'") { buf += next; i += 2; continue; }
+        if (ch === "'") inStr = false;
+        i++; continue;
+      }
+      if (inIdent) {
+        buf += ch;
+        if (ch === '"') inIdent = false;
+        i++; continue;
+      }
+      if (ch === "-" && next === "-") { inLine = true; buf += ch + next; i += 2; continue; }
+      if (ch === "/" && next === "*") { inBlock = true; buf += ch + next; i += 2; continue; }
+      if (ch === "'") { inStr = true; buf += ch; i++; continue; }
+      if (ch === '"') { inIdent = true; buf += ch; i++; continue; }
+      if (ch === ";") { out.push(buf); buf = ""; i++; continue; }
+      buf += ch; i++;
+    }
+    out.push(buf);
+    return out
       .map(function (s) { return s.trim(); })
-      .filter(Boolean)
+      .filter(function (s) {
+        if (s.length === 0) return false;
+        // Drop comment-only chunks, e.g. a trailing comment with no newline
+        // after the last semicolon. DuckDB tolerates them, but there is no
+        // reason to send one.
+        return s.replace(/--[^\n]*/g, "").replace(/\/\*[\s\S]*?\*\//g, "").trim().length > 0;
+      });
+  }
+
+  function runAll(sql) {
+    return splitStatements(sql)
       .reduce(function (chain, stmt) {
         return chain.then(function () { return conn.query(stmt); });
       }, Promise.resolve());

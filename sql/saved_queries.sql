@@ -120,6 +120,65 @@ FROM runs
 ORDER BY days DESC, name
 LIMIT 12;
 
+-- @name The named national heatwave episodes
+-- @blurb Days on which at least 100 stations simultaneously reached 35 degC,
+-- @blurb collapsed into spells. The long one in early August is the one to look at.
+SELECT started, ended, days, peak_stations, peak_date, mean_pct_absolute
+FROM national_events
+ORDER BY days DESC, peak_stations DESC;
+
+-- @name The whole event catalogue, longest first
+-- @blurb Heatwaves, cold spells, heavy rain and dry spells in one table.
+-- @blurb `magnitude` means different things per family, so read the headline.
+SELECT family, basis, name, region_norm, started, ended, days, headline
+FROM event_catalogue
+ORDER BY days DESC, family
+LIMIT 40;
+
+-- @name Where the two heatwave definitions disagree
+-- @blurb These 146 stations never reach 35 degC at all, so an absolute rule
+-- @blurb would say they had no heatwave, while their own decile says they did.
+SELECT region_norm, COUNT(DISTINCT station_id) AS stations, ROUND(MAX(peak_tmax),1) AS hottest
+FROM heatwave_runs
+WHERE kind = 'relative'
+  AND station_id NOT IN (SELECT station_id FROM heatwave_runs WHERE kind = 'absolute')
+GROUP BY region_norm
+ORDER BY stations DESC;
+
+-- @name The longest relative heatwave at each station
+-- @blurb Each station against itself, so a 39 degC spell in Guangzhou counts
+-- @blurb alongside one in Turpan.
+SELECT name, region_norm, started, ended, days, peak_tmax,
+       ROUND(peak_tmax - peak_excess, 1) AS their_own_threshold
+FROM heatwave_runs
+WHERE kind = 'relative'
+ORDER BY days DESC, peak_tmax DESC
+LIMIT 25;
+
+-- @name Every heavy-rain episode worth naming
+-- @blurb Two days or more above a station's own 95th percentile of rain.
+-- @blurb Desert stations are excluded: their p95 is a fraction of a millimetre.
+SELECT name, region_norm, started, ended, days, rain_total, peak_rain, peak_date
+FROM heavy_rain_runs
+WHERE days >= 2
+ORDER BY rain_total DESC;
+
+-- @name The longest cold spells of the early summer
+-- @blurb Nights at or below a station's own 10th percentile.
+SELECT name, region_norm, started, ended, days, coldest, coldest_date
+FROM cold_spell_runs
+WHERE days >= 5
+ORDER BY days DESC, coldest ASC;
+
+-- @name Where the network was hottest, day by day
+-- @blurb Only counts days with at least 100 stations reporting, otherwise a
+-- @blurb May day with one hot station scores 100 percent.
+SELECT date, stations, over_35c, pct_absolute, over_own_p90, pct_relative
+FROM national_heatwave_days
+WHERE significant
+ORDER BY over_35c DESC
+LIMIT 25;
+
 -- @name Rainfall by month and province
 -- @blurb June is the wet month nationwide. Swap the two grouped columns to
 -- @blurb pivot the result yourself.

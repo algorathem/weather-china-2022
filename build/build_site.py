@@ -90,7 +90,6 @@ def indent(text: str, prefix: str) -> str:
 # The markup
 # ---------------------------------------------------------------------------
 def build_section(meta: dict, n_queries: int) -> str:
-    bands = "138 / 88 / 93 / 53"
     return f"""  <section id="console" aria-labelledby="console-title">
     <div class="c-head">
       <h2 id="console-title">Then ask the data your own questions</h2>
@@ -112,7 +111,7 @@ def build_section(meta: dict, n_queries: int) -> str:
 
     <div data-work hidden>
       <details class="c-schema">
-        <summary>What you can query &mdash; 2 tables and 5 views</summary>
+        <summary>What you can query &mdash; 3 tables and 13 views</summary>
         <div class="c-schema-body"><div class="c-tables" data-schema-body></div></div>
       </details>
 
@@ -164,11 +163,14 @@ def main() -> None:
 
     css = (HERE / "console.css").read_text(encoding="utf-8").rstrip()
     js = (HERE / "console.js").read_text(encoding="utf-8").rstrip()
-    views_sql = (SQL / "views.sql").read_text(encoding="utf-8").strip()
+    # events.sql depends on the views, so it has to run after them.
+    views_sql = ((SQL / "views.sql").read_text(encoding="utf-8").strip() + "\n\n"
+                 + (SQL / "events.sql").read_text(encoding="utf-8").strip())
     queries = parse_saved_queries((SQL / "saved_queries.sql").read_text(encoding="utf-8"))
 
     parquet = (DATA / "weather.parquet").read_bytes()
     stations_csv = (DATA / "stations.csv").read_text(encoding="utf-8")
+    thresholds_csv = (DATA / "station_thresholds.csv").read_text(encoding="utf-8")
 
     meta = json.loads((DATA / "weather_meta.json").read_text(encoding="utf-8"))
     meta["parquet_kb"] = round(len(parquet) / 1024)
@@ -186,9 +188,11 @@ def main() -> None:
     # 3-5. payload, SQL, and the console script, at the end of the body
     b64 = base64.b64encode(parquet).decode("ascii")
     b64_csv = base64.b64encode(stations_csv.encode("utf-8")).decode("ascii")
+    b64_thr = base64.b64encode(thresholds_csv.encode("utf-8")).decode("ascii")
     payload = f"""
 <script id="console-parquet" type="application/octet-stream">{b64}</script>
 <script id="console-stations" type="application/octet-stream">{b64_csv}</script>
+<script id="console-thresholds" type="application/octet-stream">{b64_thr}</script>
 <script>
 const SCHEMA_SQL = {js_string(views_sql)};
 const SAVED_QUERIES = {json.dumps(queries, ensure_ascii=False, indent=1).replace("</", "<\\/")};

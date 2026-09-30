@@ -233,6 +233,58 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     });
   })()`, sessionId);
   const figures = JSON.parse(figuresRaw);
+  let mism = 0;
+
+  // The event catalogue has to be built by the browser engine too, and its
+  // integrity properties re-checked there rather than trusted from Python.
+  const eventsRaw = await s.eval(`(async () => {
+    const conn = globalThis.__weatherConsole.testHandle().getConn();
+    const S = (v) => (v === null || v === undefined) ? null : String(v);
+    const rows = async (q) => (await conn.query(q)).toArray().map(r => { const j = r.toJSON(); const o = {}; for (const k in j) o[k] = S(j[k]); return o; });
+    const one = async (q) => (await rows(q))[0];
+    const split = await one("SELECT (SELECT COUNT(*) FROM event_catalogue) AS c, (SELECT COUNT(*) FROM heatwave_runs) + (SELECT COUNT(*) FROM cold_spell_runs) + (SELECT COUNT(*) FROM heavy_rain_runs) + (SELECT COUNT(*) FROM dry_spell_runs) AS f");
+    return JSON.stringify({
+      catalogue: split.c,
+      catalogueVsFamilies: split.c + '/' + split.f,
+      // A reversed arg_max(arg, val) returns the measurement instead of the
+      // date, so a peak column that stops being a DATE is the tell. Checked
+      // with typeof() in the engine rather than by eyeballing a rendered cell.
+      peakDateTypes: (await one("SELECT typeof(peak_date) AS t FROM heatwave_runs LIMIT 1")).t,
+      worstPct: (await one("SELECT ROUND(MAX(pct_absolute),1) AS p FROM national_heatwave_days")).p,
+      thresholds: await one('SELECT COUNT(*) AS n, COUNT(*) FILTER (WHERE tmax_p90 IS NULL) AS blank FROM station_thresholds'),
+      longestAbsolute: await one("SELECT name, days, peak_tmax, CAST(peak_date AS VARCHAR) AS d FROM heatwave_runs WHERE kind='absolute' ORDER BY days DESC LIMIT 1"),
+      nationalEpisodes: await rows('SELECT CAST(started AS VARCHAR) AS s, CAST(ended AS VARCHAR) AS e, days, peak_stations FROM national_events ORDER BY days DESC, peak_stations DESC'),
+      relativeOnly: S((await one("SELECT COUNT(DISTINCT station_id) AS n FROM heatwave_runs WHERE kind='relative' AND station_id NOT IN (SELECT station_id FROM heatwave_runs WHERE kind='absolute')")).n),
+      aridFloor: await one('SELECT (SELECT COUNT(*) FROM station_thresholds WHERE rain_p95 < 10.0) AS excluded, (SELECT ROUND(MIN(peak_rain),2) FROM heavy_rain_runs) AS smallest_kept')
+    });
+  })()`, sessionId);
+  const ev = JSON.parse(eventsRaw);
+  console.log('\nevent catalogue, built in the browser:');
+  console.log('  ' + JSON.stringify(ev, null, 1).replace(/\n/g, '\n  '));
+
+  const eventExpect = [
+    ['catalogue vs families', ev.catalogueVsFamilies, '13911/13911'],
+    ['catalogue size', +ev.catalogue, 13911],
+    ['peak_date is a DATE', ev.peakDateTypes, 'DATE'],
+    ['worst national share', +ev.worstPct, 31.7],
+    ['stations with thresholds', ev.thresholds.n, '379'],
+    ['stations with no tmax', ev.thresholds.blank, '7'],
+    ['longest absolute run', ev.longestAbsolute.name, 'Turpan'],
+    ['longest absolute days', ev.longestAbsolute.days, '42'],
+    ['longest absolute peak', +ev.longestAbsolute.peak_tmax, 46.6],
+    ['national episodes', ev.nationalEpisodes.length, 7],
+    ['longest national episode', +ev.nationalEpisodes[0].days, 6],
+    ['relative-only stations', ev.relativeOnly, '146'],
+    ['arid stations excluded', ev.aridFloor.excluded, '80'],
+    ['smallest kept rain peak', +ev.aridFloor.smallest_kept, 10.3],
+  ];
+  for (const [label, got, want] of eventExpect) {
+    const ok = typeof want === 'number' ? Math.abs(got - want) < 0.051 : got === want;
+    if (!ok) mism++;
+    console.log(`  [${ok ? 'ok' : 'FAIL'}] ${label.padEnd(26)} got ${got} want ${want}`);
+  }
+  if (mism) throw new Error(`${mism} event checks failed in the browser`);
+
   console.log(JSON.stringify(figures, null, 1));
 
   const expect = [
@@ -256,7 +308,6 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     ['longest hot run', +figures.longestRun.days, 42],
     ['longest hot run at', figures.longestRun.name, 'Turpan'],
   ];
-  let mism = 0;
   for (const [label, got, want] of expect) {
     const ok = typeof want === 'number' ? Math.abs(got - want) < 0.051 : got === want;
     if (!ok) mism++;

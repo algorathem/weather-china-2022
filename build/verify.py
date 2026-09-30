@@ -49,9 +49,55 @@ def main() -> int:
     con = duckdb.connect()
     con.execute(f"CREATE VIEW weather AS SELECT * FROM read_parquet('{DATA / 'weather.parquet'}')")
     con.execute(f"CREATE VIEW stations AS SELECT * FROM read_csv_auto('{DATA / 'stations.csv'}')")
+    # Registered as a TABLE, the same way the console registers it, so that the
+    # verifier exercises the shipped file rather than recomputing the quantiles.
+    con.execute(
+        f"CREATE TABLE station_thresholds AS SELECT * FROM read_csv_auto('{DATA / 'station_thresholds.csv'}')"
+    )
 
+    # events.sql builds on views.sql, so it runs second. The console is given
+    # these two files concatenated in the same order; keeping the verifier on
+    # the same path is what stops a saved query from passing here and failing
+    # in the browser.
     con.execute((SQL / "views.sql").read_text(encoding="utf-8"))
-    print("views.sql applied\n")
+    con.execute((SQL / "events.sql").read_text(encoding="utf-8"))
+    print("views.sql + events.sql applied\n")
+
+    # ---- station_thresholds.csv must match the raw data ----------------------
+    # The thresholds are precomputed so the browser does not pay for them on
+    # every page load. That is only safe if they are re-derived and compared
+    # here, so this block is what makes the precomputation legitimate.
+    print("station_thresholds.csv re-derived from the raw readings")
+    derived = con.execute("""
+        SELECT station_id, ANY_VALUE(name) AS name, ANY_VALUE(region_norm) AS region_norm,
+               quantile_cont(tmax, 0.90) AS tmax_p90, quantile_cont(tmax, 0.95) AS tmax_p95,
+               quantile_cont(tmin, 0.10) AS tmin_p10, quantile_cont(rain, 0.95) AS rain_p95,
+               quantile_cont(rain, 0.25) AS rain_p25
+        FROM wx GROUP BY station_id
+    """).fetchall()
+    shipped = con.execute("""
+        SELECT station_id, name, region_norm, tmax_p90, tmax_p95, tmin_p10, rain_p95, rain_p25
+        FROM station_thresholds
+    """).fetchall()
+    check("  threshold row count", len(shipped), len(derived))
+    by_id = {r[0]: r for r in shipped}
+    worst = 0.0
+    missing = 0
+    for row in derived:
+        got = by_id.get(row[0])
+        if got is None:
+            failures.append(f"station_thresholds is missing {row[0]}")
+            continue
+        for i, col in enumerate(("tmax_p90", "tmax_p95", "tmin_p10", "rain_p95", "rain_p25"), start=3):
+            if row[i] is None and got[i] is None:
+                continue
+            if row[i] is None or got[i] is None:
+                missing += 1
+                failures.append(f"station_thresholds.{col} null mismatch for {row[0]}")
+                continue
+            worst = max(worst, abs(row[i] - got[i]))
+    check("  max threshold drift", round(worst, 4), 0.0)
+    check("  null mismatches", missing, 0)
 
     # ---- front-page figures --------------------------------------------------
     print("published figures")
@@ -79,6 +125,62 @@ def main() -> int:
     check("  its mean rain", one(con, "SELECT MAX(mean_rain) FROM network_day"), 10.0)
 
     check("altitude correlation", one(con, "SELECT ROUND(CORR(altitude, mean_high),2) FROM station_extremes"), -0.76)
+
+    # ---- event catalogue -----------------------------------------------------
+    # Structural integrity, not a list of findings. Each of these catches a
+    # specific way the views can produce confident nonsense.
+    print("\nevent catalogue integrity")
+    check("catalogue equals the four families",
+          one(con, "SELECT COUNT(*) FROM event_catalogue"),
+          one(con, "SELECT (SELECT COUNT(*) FROM heatwave_runs) + (SELECT COUNT(*) FROM cold_spell_runs)"
+                   " + (SELECT COUNT(*) FROM heavy_rain_runs) + (SELECT COUNT(*) FROM dry_spell_runs)"))
+    check("no run spans a gap in the data",
+          one(con, "SELECT COUNT(*) FROM (SELECT 1 FROM heatwave_runs WHERE kind='absolute'"
+                   " AND days <> CAST(ended - started AS INTEGER) + 1)"), 0)
+    check("every event is inside the observed range",
+          one(con, "SELECT COUNT(*) FROM event_catalogue"
+                   " WHERE started < DATE '2022-05-01' OR ended > DATE '2022-08-21'"), 0)
+
+    # A reversed arg_max(arg, val) returns the measurement rather than the key,
+    # which types the column as DOUBLE. That is how the bug presents: the query
+    # runs, the numbers look plausible, and only the type is wrong.
+    for view, col in [("heatwave_runs", "peak_date"), ("cold_spell_runs", "coldest_date"),
+                      ("heavy_rain_runs", "peak_date"), ("national_events", "peak_date")]:
+        check(f"{view}.{col} is a DATE",
+              one(con, f"SELECT DISTINCT typeof({col}) FROM {view}"), "DATE")
+
+    # The share denominator must be every station that reported, not every
+    # station that happened to have a heatwave. Using heatwave_days here still
+    # returns plausible numbers, just several times too large, so it is pinned
+    # to the independently measured worst day rather than merely being non-null.
+    check("share denominator is the reporting network",
+          one(con, "SELECT COUNT(*) FROM national_heatwave_days n WHERE n.stations <>"
+                   " (SELECT COUNT(DISTINCT w.station_id) FROM wx w"
+                   "  WHERE w.tmax IS NOT NULL AND w.date = n.date)"), 0)
+    check("worst national share over 35 degC",
+          one(con, "SELECT ROUND(MAX(pct_absolute),1) FROM national_heatwave_days"), 31.7)
+
+    # A dry threshold that can never fire is invisible in a row count: 86 spells
+    # at 5 stations looked plausible. What exposes it is how many days each
+    # station's rule actually selects.
+    check("no station has an unreachable dry threshold",
+          one(con, "SELECT COUNT(*) FROM (SELECT station_id FROM wx x"
+                   " JOIN station_thresholds t USING (station_id) WHERE x.rain <= t.rain_p25"
+                   " GROUP BY station_id HAVING COUNT(*) = 0)"), 0)
+    check("dry spells cover the whole network",
+          one(con, "SELECT COUNT(DISTINCT station_id) FROM dry_spell_runs"), 379)
+
+    check("longest absolute heatwave",
+          con.execute("SELECT name || ' ' || CAST(days AS VARCHAR) FROM heatwave_runs"
+                      " WHERE kind='absolute' ORDER BY days DESC LIMIT 1").fetchone()[0],
+          "Turpan 42")
+    check("national episodes",
+          one(con, "SELECT COUNT(*) FROM national_events"), 7)
+    check("every national episode is contiguous",
+          one(con, "SELECT COUNT(*) FROM national_events"
+                   " WHERE days <> CAST(ended - started AS INTEGER) + 1"), 0)
+    check("national episodes all clear 100 stations",
+          one(con, "SELECT MIN(peak_stations) FROM national_events"), 101)
 
     # ---- altitude bands, against the page's four cards -----------------------
     print("\naltitude bands")
@@ -120,7 +222,14 @@ def main() -> int:
             cols = [d[0] for d in got.description]
             n = len(got.fetchall())
             checks += 1
-            print(f"  [ok] {name:52s} {n:>4} rows, {len(cols)} cols")
+            # An empty result is a silent failure, not a pass. Some of the
+            # event queries are supposed to return nothing on a different
+            # dataset, but not on this one.
+            if n == 0:
+                failures.append(f"saved query returned no rows: {name}")
+                print(f"  [FAIL] {name:52s} returned no rows")
+            else:
+                print(f"  [ok] {name:52s} {n:>4} rows, {len(cols)} cols")
         except Exception as exc:  # noqa: BLE001
             checks += 1
             failures.append(f"saved query: {name}")

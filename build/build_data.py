@@ -1,15 +1,22 @@
 """Build the publishable data artifacts from the source workbook.
 
 Reads ../../Downloads/weather_data_May22.xlsx and writes, into data/:
-  weather.parquet   tidy long table, byte-identical in meaning to the workbook
-  weather.csv       same, uncompressed, for anything that wants a plain file
-  stations.csv      one row per physical station (name+coords is the identity)
-  weather_meta.json row counts, date span and the documented data quirks
+  weather.parquet        tidy long table, byte-identical in meaning to the workbook
+  weather.csv            same, uncompressed, for anything that wants a plain file
+  stations.csv           one row per physical station (name+coords is the identity)
+  station_thresholds.csv each station's own summer percentiles, for the event views
+  weather_meta.json      row counts, date span and the documented data quirks
 
 Nothing is silently corrected. The workbook's quirks (four duplicated station
 names, "T'ai-pei" spelled as a region, 791 blank temperatures) are preserved in
 weather.parquet and surfaced as explicit columns in stations.csv so that the
 SQL layer can either honour or correct them.
+
+station_thresholds.csv is precomputed rather than left to the browser. It is a
+pure function of the immutable Parquet, and computing a window quantile over
+42,827 rows inside duckdb-wasm added roughly 35 seconds to the console's startup
+on every page load. build/verify.py recomputes it from the raw data and fails
+on any disagreement, so precomputing it cannot let it drift.
 """
 
 from __future__ import annotations
@@ -112,6 +119,39 @@ def main() -> None:
     per_station = per_station.sort_values("station_id", kind="stable")
     per_station.to_csv(DATA / "stations.csv", index=False, lineterminator="\n")
 
+    # ---- station_thresholds.csv : each station's own summer percentiles ------
+    # sql/events.sql reads this instead of computing the quantiles in the
+    # browser. The definitions, in the order the event views need them:
+    #   tmax_p90  the ~11 hottest days of that station's summer
+    #   tmax_p95  the ~6 hottest
+    #   tmin_p10  the ~11 coldest nights
+    #   rain_p95  the ~6 wettest days
+    #   rain_p25  the dry quarter of days
+    # Each is computed on its own column with that column's nulls excluded, so
+    # a station missing temperatures still gets a usable rain threshold.
+    # The long frame carries name/lat/long but not station_id, so derive it
+    # here rather than joining: that keeps the row order of `df` intact.
+    joined = df.copy()
+    joined["station_id"] = [
+        f"{n}@{la:.3f},{lo:.3f}" for n, la, lo in
+        zip(joined["name"], joined["latitude"], joined["longitude"])
+    ]
+    region_lookup = per_station.set_index("station_id")["region_norm"]
+    joined["region_norm"] = joined["station_id"].map(region_lookup)
+    thresholds = joined.groupby("station_id", as_index=False).agg(
+        name=("name", "first"),
+        region_norm=("region_norm", "first"),
+        tmax_p90=("tmax", lambda s: s.quantile(0.90) if s.notna().any() else None),
+        tmax_p95=("tmax", lambda s: s.quantile(0.95) if s.notna().any() else None),
+        tmin_p10=("tmin", lambda s: s.quantile(0.10) if s.notna().any() else None),
+        rain_p95=("rain", lambda s: s.quantile(0.95) if s.notna().any() else None),
+        rain_p25=("rain", lambda s: s.quantile(0.25) if s.notna().any() else None),
+    )
+    for col in ("tmax_p90", "tmax_p95", "tmin_p10", "rain_p95", "rain_p25"):
+        thresholds[col] = thresholds[col].round(4)
+    thresholds = thresholds.sort_values("station_id", kind="stable")
+    thresholds.to_csv(DATA / "station_thresholds.csv", index=False, lineterminator="\n")
+
     # ---- meta ----------------------------------------------------------------
     dates = df["date"]
     alias_regions = sorted(r for r in df["region"].unique() if r in REGION_ALIASES)
@@ -147,9 +187,10 @@ def main() -> None:
     )
 
     # ---- report --------------------------------------------------------------
-    for name in ("weather.parquet", "weather.csv", "stations.csv", "weather_meta.json"):
+    for name in ("weather.parquet", "weather.csv", "stations.csv",
+                 "station_thresholds.csv", "weather_meta.json"):
         kb = (DATA / name).stat().st_size / 1024
-        print(f"  {name:22s} {kb:9.1f} KB")
+        print(f"  {name:24s} {kb:9.1f} KB")
     print(f"  stations {meta['stations_by_coords']} / names {meta['station_names']}"
           f" / days {meta['days']} / rows {meta['rows']}")
 
@@ -159,6 +200,16 @@ def main() -> None:
     assert back["rain"].sum() == df["rain"].sum(), "parquet rain total changed"
     assert back["tmax"].max() == df["tmax"].max(), "parquet max tmax changed"
     print("  round-trip ok")
+
+    # The precomputed thresholds must cover every station, and the 7 with no
+    # temperature must be the only ones with a missing tmax_p90.
+    assert len(thresholds) == meta["stations_by_coords"], "threshold row count wrong"
+    blank_p90 = int(thresholds["tmax_p90"].isna().sum())
+    assert blank_p90 == meta["blank_temperature_stations"], (
+        f"{blank_p90} stations lack a tmax_p90, expected "
+        f"{meta['blank_temperature_stations']}"
+    )
+    print(f"  thresholds ok, {blank_p90} stations without a temperature threshold")
 
 
 if __name__ == "__main__":
